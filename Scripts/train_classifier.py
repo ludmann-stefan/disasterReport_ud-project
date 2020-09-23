@@ -94,7 +94,7 @@ ________________________________________________________________________________
 # Pipiline simple test-version
 simple_pipeline = Pipeline([
 
-    ('count', CountVectorizer(tokenizer = tokenize))
+    ('count', CountVectorizer())
     , ('tfidf', TfidfTransformer())
     , ('clf', MultiOutputClassifier(AdaBoostClassifier()))])
 
@@ -118,7 +118,8 @@ ________________________________________________________________________________
 
 
 reduced_pipeline = Pipeline([
-    ('count', CountVectorizer(tokenizer = tokenize, binary = True)),
+    
+    ('count', CountVectorizer( binary = True)),
     ('tfidf', TfidfTransformer()),
     ('clf', MultiOutputClassifier(AdaBoostClassifier()))])
 #
