@@ -70,6 +70,7 @@ engine = create_engine('sqlite:///data/data.db')
 
 accuracy_score = pd.read_sql_table ('accuracy', engine)
 data = pd.read_sql_table ('data', engine)
+avail_data = pd.read_sql_table ('avail_data', engine)
 
 
 graph_one = [(go.Bar(

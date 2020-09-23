@@ -163,6 +163,9 @@ in_arg = 'test need some water or something like this'
 predictions = mod.predict ([in_arg])
 predictions = pd.DataFrame (predictions)
 
+avail_data = data.sum(axis = 0)[4:]
+
 accu_score.T.to_sql ('accuracy', engine, if_exists = 'replace')
+avail_data.to_sql ('avail_data', engine, if_exists = 'replace')
 
 print ('finished')
