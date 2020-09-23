@@ -71,7 +71,6 @@ engine = create_engine('sqlite:///data/data.db')
 accuracy_score = pd.read_sql_table ('accuracy', engine)
 data = pd.read_sql_table ('data', engine)
 
-print (data.sum(axis = 0)[4:])
 
 graph_one = [(go.Bar(
     x = accuracy_score['index'],
