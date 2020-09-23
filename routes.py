@@ -40,7 +40,7 @@ def tokenize (tweet):
     return tweet
 
 def get_predictions (in_arg):
-    filename = '/Models/finalized_model.sav'
+    filename = './Models/finalized_model.sav'
     dt_model = joblib.load(filename)
     predictions = dt_model.predict ([in_arg])
     predictions = pd.DataFrame (predictions)
