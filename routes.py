@@ -43,7 +43,7 @@ def tokenize (tweet):
     return tweet
 
 def get_predictions (in_arg):
-    filename = './Models/finalized_model.sav'
+    filename = '/Models/finalized_model.sav'
     dt_model = joblib.load(filename)
     predictions = dt_model.predict ([in_arg])
     predictions = pd.DataFrame (predictions)
@@ -94,7 +94,6 @@ data = pd.read_sql_table ('data', engine)
 
 
 # test whether classification is working
-print (get_predictions ('test 234').T)
 
 @app.route('/home', methods=['GET', 'POST'])
 def index():
