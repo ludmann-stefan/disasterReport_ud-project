@@ -28,9 +28,6 @@ from nltk.stem.porter import PorterStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.corpus import stopwords
 
-nltk.download ('punkt')
-nltk.download ('stopwords')
-nltk.download ('wordnet')
 
 tknzr = TweetTokenizer ()
 import re
