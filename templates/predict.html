@@ -1,0 +1,36 @@
+
+{% extends "Website.html" %}
+
+{% block title %} Result {% endblock %}
+
+{% block messageHead %}
+  <div style = 'font-size: 10pt;'> Your Input: </div>
+{% endblock %}
+{% block message %}
+
+   <div style = 'text-align: center; font-style: italic;'> {{tweet}} </div>
+
+{% endblock %}
+
+{% block results %}
+
+
+  <div style = 'font-size: 10pt;'> <p> Suggestion: </p>
+    <div style = 'text-align: center;' >
+      <div class="container">
+        <div class = 'row' >
+      {% for x in predictedCat %}
+
+      <div class = 'col-sm' style = 'border: 5px solid white; border-radius: 22px; border-top-left-radius: 0px; background: grey; color: white;' > {{x}} </div>
+      {% endfor %}
+    </div>
+    </div>
+    </div>
+  </div>
+
+  <div style = 'font-size: 10pt; border: 5px solid white; border-radius: 22px; border-top-left-radius: 0px; border-top-right-radius: 0px; background-color:rgb(140, 140, 140); color:white;'>
+    <div> Others: </div>
+    <div style = 'text-align: center; font-size: 8pt;'> {{otherCat}}</div>
+</div>
+
+{% endblock%}

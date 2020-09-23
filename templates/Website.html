@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- own lib CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='toast/toast.css') }} "/>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+    <title>test!</title>
+  </head>
+  <body>
+<div class = 'row'>
+  <div class = 'col-3'>
+    <div class="sticky-top">
+
+    <nav id="navbar-example3" class="navbar navbar-light bg-light">
+      <nav class="nav nav-pills flex-column">
+        <a class="nav-link" href="/">Home </a>
+
+        <a class="nav-link" href="#item-1">Tweet Classifier </a>
+
+        <a class="nav-link" href="#item-2">Accuracy</a>
+
+        <a class="nav-link" href="#item-2">Disclaimer</a>
+
+
+        </nav>
+      </nav>
+    </div>
+  </div>
+
+  <div class = 'col-9 scrollit' >
+
+      <h4 id="Top"></h4>
+
+      <div class="jumbotron">
+      <h2 class="display-4">Natural Language Processing</h2>
+      <p class="lead">... on Disaster Report Tweets</p>
+      <hr class="my-4">
+
+        <li> building a html Dashboard, NLP processing and Machine Learning Classification </li>
+        <li> Demonstration on categorizing emergency messages based on tweets </li>
+        <p style="font-size:8pt; color:#696969;">  within the Udacity Data Scientist NanoDegree</p>
+
+      </div>
+
+    <h2 id="item-1">Tweet Classifier</h2>
+
+    <div data-spy="scroll" data-target="#navbar-example3" data-offset="0">
+
+      <form action = '/predict#item-1' method = 'post'>
+      <div class="form-group" >
+        <label for="UserInput" class = 'offset-1'> <h6> How can I help you? </h6> </label>
+        <input class="form-control" id="UserInput" name = 'UserInput' rows="3" placeholder="enter tweet here" ></input>
+      </div>
+
+      <div style="font-size:8pt; color:#696969;">
+        <div> example: </div>
+        <i>' {{example}} '</i>
+      </div>
+        <button type="submit" class="btn btn-primary my-2" onclick = 'Toast.show ()' >Submit tweet</button>
+      </form>
+      {% block messageHead %} {% endblock %}
+        <!-- Then put toasts below -->
+        <div id = 'item-11'>   </div>
+        {% block message %} {% endblock %}
+        {% block results %} {% endblock %}
+      <p>
+
+      </p>
+      </div>
+
+
+      <hr>
+
+      <h4 id="item-2">Accuracy Score</h4>
+      <p>
+        Short description on what i have done so far and how calculation is running
+        <li> Efficient and fast processing based on reduced Vocabulary</li>
+        <li> Decision Tree approach on train and test Data</li>
+
+    </p>
+        <div id ="{{ids[0]}}"></div>
+
+      <hr>
+
+
+      <h4 id="item-3">Disclaimer</h4>
+      <p> Data is provided by Figure Eight. Project design from Udacity. </p>
+      <p> Backend (ETL-Pipeline, ML) and Frontend (HTML, JS, CSS) written by Stefan Ludmann . GitHub link...</p>
+    </div>
+</div>
+
+
+      <script src="{{ url_for('static', filename='toast/toast.js') }}"> </script>
+
+        <script>
+
+        var tweetinput = []
+        function tweetanalyze()    {
+            var tweetinput = document.getElementById("UserInput").value;
+            document.getElementById("displayInput").value = "'"  + tweetinput + "'";
+            const url = 'predict/' + tweetinput;
+            console.log(url);
+            fetch('/predict/' + tweetinput).then(res => console.log(res));
+            window.location.replace(url);
+          }
+        </script>
+
+        <script type = "text/javascript">
+        var figures = {{figuresJSON | safe}};
+        var ids = {{ids | safe}};
+        for(var i in figures) {
+          Plotly.plot(ids[i],
+              figures[i].data,
+              figures[i].layout || {});
+            }
+            </script>
+
+
+
+      </body>
+    </html>
