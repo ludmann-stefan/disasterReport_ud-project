@@ -66,10 +66,15 @@ def get_predictions (in_arg):
     result = pd.DataFrame(predictions)
     return result
 
-accuracy_score = pd.read_csv ('./Models/accuracy_score.csv')
+engine = create_engine('sqlite:///data/data.db')
+
+accuracy_score = pd.read_sql_table ('accuracy', engine)
+data = pd.read_sql_table ('data', engine)
+
+print (data.sum(axis = 0)[4:])
 
 graph_one = [(go.Bar(
-    x = accuracy_score['Unnamed: 0'],
+    x = accuracy_score['index'],
     y = accuracy_score['precision'],
     name = 'test'))]
 
@@ -78,16 +83,28 @@ layout_one = dict (title = 'Precission Score of test-Data',
     yaxis = dict (title= 'accuracy of predicted Tweets')
                 )
 
+graph_two = [(go.Bar(
+    x = data.sum(axis = 0)[4:].index,
+    y = data.sum(axis = 0)[4:],
+    name = 'available Data'))]
+
+layout_two = dict (title = 'available Data',
+    xaxis = dict (title = 'categories'),
+    yaxis = dict (title= 'count')
+                )
+
+
 figures = []
 figures.append (dict(data = graph_one, layout = layout_one))
+figures.append (dict(data = graph_two, layout = layout_two))
 
 ids = ['figures-{}'.format (i) for i, _ in enumerate(figures)]
 
 figuresJSON = json.dumps(figures, cls=plotly.utils.PlotlyJSONEncoder)
 tweet = []
 
-engine = create_engine('sqlite:///data/data.db')
-data = pd.read_sql_table ('data', engine)
+
+
 
 
 # test whether classification is working

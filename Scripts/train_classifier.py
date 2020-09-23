@@ -118,7 +118,7 @@ ________________________________________________________________________________
 
 
 reduced_pipeline = Pipeline([
-    
+
     ('count', CountVectorizer( binary = True)),
     ('tfidf', TfidfTransformer()),
     ('clf', MultiOutputClassifier(AdaBoostClassifier()))])
@@ -162,5 +162,7 @@ mod = joblib.load ('./Models/finalized_model.sav')
 in_arg = 'test need some water or something like this'
 predictions = mod.predict ([in_arg])
 predictions = pd.DataFrame (predictions)
+
+accu_score.T.to_sql ('accuracy', engine, if_exists = 'replace')
 
 print ('finished')
