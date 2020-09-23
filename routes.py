@@ -96,7 +96,7 @@ data = pd.read_sql_table ('data', engine)
 # test whether classification is working
 print (get_predictions ('test 234').T)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 def index():
 
     number = np.random.randint(0, len(data), 1)[0]
