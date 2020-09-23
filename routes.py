@@ -13,8 +13,61 @@ import csv
 from sqlalchemy import create_engine
 import sqlite3
 
+import numpy as np
+import pandas as pd
+import csv
+from sqlalchemy import create_engine
+import sqlite3
+import pickle
+import joblib
 
-from NLPpackage import funktions
+import nltk
+from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.tokenize import word_tokenize, TweetTokenizer
+from nltk.stem.porter import PorterStemmer
+from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.corpus import stopwords
+
+nltk.download ('punkt')
+nltk.download ('stopwords')
+nltk.download ('wordnet')
+
+tknzr = TweetTokenizer ()
+import re
+
+def tokenize (tweet):
+    tweet = re.sub(r"[^a-zA-Z0-9?#-]", " ", tweet.lower())
+    tweet = tknzr.tokenize(tweet)
+    tweet = [WordNetLemmatizer().lemmatize (a) for a in tweet]
+    tweet = [word for word in tweet if word not in stopwords.words('english')]
+    return tweet
+
+def get_predictions (in_arg):
+    filename = './Models/finalized_model.sav'
+    dt_model = joblib.load(filename)
+    predictions = dt_model.predict ([in_arg])
+    predictions = pd.DataFrame (predictions)
+
+    predictions.rename (columns = {0: 'related',
+     1: 'request', 2: 'offer', 3: 'aid related',
+     4: 'medical help', 5: 'medical products',
+     6: 'search and rescue', 7:'security',
+     8: 'military', 9:'child alone',
+     10: 'water', 11: 'food', 12: 'shelter',
+     13: 'clothing', 14: 'money', 15: 'missing people',
+     16: 'refugees', 17: 'death', 18: 'other aid',
+     19: 'infrastructure related', 20: 'transport',
+     21: 'buildings', 22: 'electricity', 23: 'tools',
+     24: 'hospitals', 25: 'shops', 26: 'aid centers',
+     27: 'other infrastructure', 28: 'weather related',
+     29: 'floods', 30: 'storm', 31: 'fire',
+     32: 'earthquake', 33: 'cold',
+     34: 'other weather', 35: 'direct report'}, inplace = True)
+
+    sumation = predictions.sum (axis = 1)
+    print (sumation)
+    result = pd.DataFrame(predictions)
+    return result
 
 accuracy_score = pd.read_csv ('./Models/accuracy_score.csv')
 
@@ -41,7 +94,7 @@ data = pd.read_sql_table ('data', engine)
 
 
 # test whether classification is working
-print (funktions.get_predictions ('test 234').T)
+print (get_predictions ('test 234').T)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -65,7 +118,7 @@ def predict():
         tweet =  (tweet_in.get ('UserInput'))
         print (tweet)
         # use classifier
-        pred = funktions.get_predictions (str (tweet)).T
+        pred = get_predictions (str (tweet)).T
 
         a = pred[pred[0]== 1]
         b = pred[pred[0]== 0]
