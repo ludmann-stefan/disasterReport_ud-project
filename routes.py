@@ -124,5 +124,5 @@ def predict():
         return render_template('predict.html', tweet = tweet, predictedCat = list(a.index), otherCat = list(b.index),  figuresJSON = figuresJSON, ids = ids, example = example)
 
 
-    return render_template('website.html',   figuresJSON = figuresJSON, ids = ids, example = example)
+    return render_template('Website.html',   figuresJSON = figuresJSON, ids = ids, example = example)
 # predictedCat = a.index, otherCat = b.index
