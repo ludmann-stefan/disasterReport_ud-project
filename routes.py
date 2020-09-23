@@ -72,6 +72,7 @@ accuracy_score = pd.read_sql_table ('accuracy', engine)
 data = pd.read_sql_table ('data', engine)
 avail_data = pd.read_sql_table ('avail_data', engine)
 
+print (avail_data)
 
 graph_one = [(go.Bar(
     x = accuracy_score['index'],
@@ -84,12 +85,12 @@ layout_one = dict (title = 'Precission Score of test-Data',
                 )
 
 graph_two = [(go.Bar(
-    x = data.sum(axis = 0)[4:].index,
-    y = data.sum(axis = 0)[4:],
+    x = avail_data.index,
+    y = avail_data,
     name = 'available Data'))]
 
-layout_two = dict (title = 'available Data',
-    xaxis = dict (title = 'categories'),
+layout_two = dict (title = 'Training Data',
+    xaxis = dict (title = ''),
     yaxis = dict (title= 'count')
                 )
 
