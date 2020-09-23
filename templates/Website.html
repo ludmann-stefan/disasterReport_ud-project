@@ -31,7 +31,7 @@
 
     <nav id="navbar-example3" class="navbar navbar-light bg-light">
       <nav class="nav nav-pills flex-column">
-        <a class="nav-link" href="/home">Home </a>
+        <a class="nav-link" href="/">Home </a>
 
         <a class="nav-link" href="#item-1">Tweet Classifier </a>
 
@@ -110,18 +110,7 @@
 
       <script src="{{ url_for('static', filename='toast/toast.js') }}"> </script>
 
-        <script>
 
-        var tweetinput = []
-        function tweetanalyze()    {
-            var tweetinput = document.getElementById("UserInput").value;
-            document.getElementById("displayInput").value = "'"  + tweetinput + "'";
-            const url = 'predict/' + tweetinput;
-            console.log(url);
-            fetch('/predict/' + tweetinput).then(res => console.log(res));
-            window.location.replace(url);
-          }
-        </script>
 
         <script type = "text/javascript">
         var figures = {{figuresJSON | safe}};
