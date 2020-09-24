@@ -28,49 +28,15 @@ from nltk.stem.porter import PorterStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.corpus import stopwords
 
+from NLPpackage import tokenize, get_predictions
 
-tknzr = TweetTokenizer ()
-import re
 
-def tokenize (tweet):
-    tweet = re.sub(r"[^a-zA-Z0-9?#-]", " ", tweet.lower())
-    tweet = tknzr.tokenize(tweet)
-    tweet = [WordNetLemmatizer().lemmatize (a) for a in tweet]
-    tweet = [word for word in tweet if word not in stopwords.words('english')]
-    return tweet
-
-def get_predictions (in_arg):
-    filename = './Models/finalized_model.sav'
-    dt_model = joblib.load(filename)
-    predictions = dt_model.predict ([in_arg])
-    predictions = pd.DataFrame (predictions)
-
-    predictions.rename (columns = {0: 'related',
-     1: 'request', 2: 'offer', 3: 'aid related',
-     4: 'medical help', 5: 'medical products',
-     6: 'search and rescue', 7:'security',
-     8: 'military', 9:'child alone',
-     10: 'water', 11: 'food', 12: 'shelter',
-     13: 'clothing', 14: 'money', 15: 'missing people',
-     16: 'refugees', 17: 'death', 18: 'other aid',
-     19: 'infrastructure related', 20: 'transport',
-     21: 'buildings', 22: 'electricity', 23: 'tools',
-     24: 'hospitals', 25: 'shops', 26: 'aid centers',
-     27: 'other infrastructure', 28: 'weather related',
-     29: 'floods', 30: 'storm', 31: 'fire',
-     32: 'earthquake', 33: 'cold',
-     34: 'other weather', 35: 'direct report'}, inplace = True)
-
-    sumation = predictions.sum (axis = 1)
-    print (sumation)
-    result = pd.DataFrame(predictions)
-    return result
 
 engine = create_engine('sqlite:///data/data.db')
 
 accuracy_score = pd.read_sql_table ('accuracy', engine)
 data = pd.read_sql_table ('data', engine)
-avail_data = pd.read_sql_table ('avail_data', engine)
+avail_data = (pd.read_sql_table ('avail_data', engine))
 
 print (avail_data)
 
@@ -84,9 +50,10 @@ layout_one = dict (title = 'Precission Score of test-Data',
     yaxis = dict (title= 'accuracy of predicted Tweets')
                 )
 
+
 graph_two = [(go.Bar(
-    x = avail_data.index,
-    y = avail_data,
+    x = avail_data['index'],
+    y = avail_data['0'],
     name = 'available Data'))]
 
 layout_two = dict (title = 'Training Data',
