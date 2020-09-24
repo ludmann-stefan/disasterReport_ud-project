@@ -1,8 +1,10 @@
 {\rtf1\ansi\ansicpg1252\cocoartf2513
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 HelveticaNeue;\f2\fswiss\fcharset0 Helvetica-Bold;
+\f3\fswiss\fcharset0 Helvetica-Oblique;}
+{\colortbl;\red255\green255\blue255;\red86\green86\blue86;\red0\green0\blue0;\red27\green31\blue34;
 }
-{\colortbl;\red255\green255\blue255;\red27\green31\blue34;}
-{\*\expandedcolortbl;;\cssrgb\c14118\c16078\c18039;}
+{\*\expandedcolortbl;;\cssrgb\c41176\c41176\c41176;\csgray\c0\c0;\cssrgb\c14118\c16078\c18039;
+}
 {\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid1\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
 {\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
 \paperw11900\paperh16840\margl1440\margr1440\vieww17420\viewh13760\viewkind0
@@ -18,7 +20,13 @@ vers 1\
 \pard\pardeftab708\ri-386\partightenfactor0
 
 \fs32 \cf0 Figure Eight Project \'96 analyzing Disaster Tweets\
-\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs21\fsmilli10667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 within the Udacity Data Scientist NanoDegree
+\f0\fs32 \cf0 \cb1 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\pard\pardeftab708\ri-386\partightenfactor0
+\cf0 \
 \
 	Table of Content
 \fs24 \
@@ -26,7 +34,7 @@ vers 1\
 2. Installation and Files\
 3. Results\
 4. Licensing, Authors and Acknowledgements
-\f1\fs32 \cf2 \expnd0\expndtw0\kerning0
+\f1\fs32 \cf4 \expnd0\expndtw0\kerning0
 \
 \pard\pardeftab708\ri-386\partightenfactor0
 \ls1\ilvl0
@@ -38,15 +46,22 @@ vers 1\
 \fs32 \
 \pard\pardeftab708\ri-386\partightenfactor0
 \ls1\ilvl0
-\fs24 \cf0 Being a part of the 
+\fs24 \cf0 Fast reaction in an emergency is crucial. Using Machine Learning algorithms to connect a need with the right help organization, can be key in maintaining help coordination, during a disaster. \
+\
+\
+Being a part of the 
 \f2\b Study-Program \'82Data-Scientist\'91 
 \f0\b0 @Udacity, this Project is aiming on supervised learning, natural language processing and categorization.\
 The Project is split into three parts- ETL, Machine Learning Pipeline and Web development:\
 \
 The goal is to link between an input and an organization-service. The input-Data is combined, cleaned and stored in a SQLite database.\
-Then a Machine Learning Pipeline with a CountVectorizer, TF-IDF Transformer and a Forest Tree Classifier is set up and taught with the training data. Further a best Parameter analysis is done with the GridSearch CV tool from Scikit Learn.\
-To show you the results, a Web-Page is set up and runs the classifier. 
-\f1\fs32 \cf2 \expnd0\expndtw0\kerning0
+Then a Machine Learning Pipeline with a CountVectorizer (inlcuding a custom Tokenizer), TF-IDF Transformer and a Forest Tree Classifier is set up and taught with the training data. Further, a best Parameter analysis is done with the GridSearch CV tool from Scikit Learn.\
+To show you the results, a Web-Page is set up and runs the classifier. \
+\
+\
+\ls1\ilvl0{\field{\*\fldinst{HYPERLINK "https://ud-ds-disasterresponse-stefan.herokuapp.com/"}}{\fldrslt https://ud-ds-disasterresponse-stefan.herokuapp.com/}}\
+\ls1\ilvl0
+\f1\fs32 \cf4 \expnd0\expndtw0\kerning0
 \
 \pard\pardeftab708\ri-386\partightenfactor0
 
@@ -63,28 +78,47 @@ To show you the results, a Web-Page is set up and runs the classifier.
 \fs28 \cf0 	2. Installation and Files\
 \pard\pardeftab708\ri-386\partightenfactor0
 
-\fs24 \cf0 This Code runs on Python 3.7.? and requires the following Libraries:\
+\fs24 \cf0 The Code is deployed on a heroku webserver, so it was modified in some Parts. Those Parts where highlighted with a [xxx] squared-bracket, where xxx shows the Code Line to change.\
+\
+\pard\pardeftab708\ri-386\partightenfactor0
+
+\fs28 \cf0 \
+\pard\pardeftab708\ri-386\partightenfactor0
+
+\fs24 \cf0 This Code runs on Python 3.x and requires the following Libraries:\
 - NumPy and Pandas\
 - scikit-learn\
 - nltk\
 - sqalchemy\
-- pickle, csv
+- joblib, csv
 \fs28 \
 
 \fs24 \
+An own tokenizer was built and put on PyPi\
+	
+\f3\i pip install NLPpackage-Package
+\f0\i0 \
+and	
+\f3\i from NLPpackage import tokenize, get_predictions 	
+\f0\i0 	\
+		as call options\
+\
+\
+\
 \
 Data:\
 categories.csv, Categories and messages\
 messages.csv, Multilingual disaster response messages.\
+	\
 \
 \pard\pardeftab708\ri-386\partightenfactor0
 
 \f2\b \cf0 | \'97 Project
 \f0\b0 \
 
-\fs20     |  stefan.py 	(runs the code)\
+\fs20     |  run.py 	(runs the code)\
     |  routes.py	(required)\
-    |  __init__.py	(-||-)\
+    |  __init__.py	(-||-)			[ app.run (host = '0.0.0.0', port = 8001, debug = True) \'97 Line 4]\
     |  READme.rtf
 \fs24 \
 \
@@ -127,6 +161,8 @@ messages.csv, Multilingual disaster response messages.\
 \fs24 \
 \
 \
+\
+\
  Steps:\
 	process Data\
 	train Classifier\
@@ -134,13 +170,20 @@ messages.csv, Multilingual disaster response messages.\
 	real time Message classification\
 \
 \
-\
 \pard\pardeftab708\ri-386\partightenfactor0
 
 \fs28 \cf0 	3. Results\
 \pard\pardeftab708\ri-386\partightenfactor0
 
-\fs24 \cf0  <Link to the accuracy>  The Accuracy is shown on one subpage. \
+\fs24 \cf0 Running the ML Pipeline (count-Vectorizer, TF-IDF and AdaBoostClassifier)\
+The Classifier was mainly chosen because of the file size.\
+\
+\
+\
+\
+ Webpage while it is running: \
+	{\field{\*\fldinst{HYPERLINK "https://ud-ds-disasterresponse-stefan.herokuapp.com/"}}{\fldrslt https://ud-ds-disasterresponse-stefan.herokuapp.com/}}\
+\
 \
 \
 \
@@ -150,5 +193,8 @@ messages.csv, Multilingual disaster response messages.\
 \pard\pardeftab708\ri-386\partightenfactor0
 
 \fs24 \cf0 The Data is provided by Figure Eight.\
+Project Design by Udacity\
+\
+Code written by Stefan Ludmann\
 \
 }

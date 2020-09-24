@@ -54,8 +54,10 @@
       <p class="lead">... on Disaster Report Tweets</p>
       <hr class="my-4">
 
-        <li> building a html Dashboard, NLP processing and Machine Learning Classification </li>
         <li> Demonstration on categorizing emergency messages based on tweets </li>
+        <li> NLP processing and building Machine Learning Classification  </li>
+        <li> deploy a html Dashboard </li>
+
         <p style="font-size:8pt; color:#696969;">  within the Udacity Data Scientist NanoDegree</p>
 
       </div>
@@ -96,8 +98,10 @@
         <li> Decision Tree approach on train and test Data</li>
 
     </p>
+        <div id ='Plot2'></div>
         <div id ="{{ids[0]}}"></div>
-        <div id ="{{ids[1]}}"></div>
+        <div> {{x}} </div>
+
 
       <hr>
 
@@ -123,6 +127,29 @@
             }
             </script>
 
+
+          <script type = "text/javascript">
+          var trace1 = {
+              x: {{x | safe}},
+              y: {{y1}},
+              name: 'non CV',
+              type: 'bar'
+            };
+
+            var trace2 = {
+              x:  {{x | safe}},
+              y: {{y2}},
+              name: 'CV',
+              type: 'bar'
+            };
+
+            var data = [trace1, trace2];
+
+            var layout = {barmode: 'group'};
+
+            Plotly.newPlot('Plot2', data, layout);
+
+                </script>
 
 
       </body>

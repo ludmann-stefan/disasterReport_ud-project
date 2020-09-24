@@ -35,43 +35,37 @@ from NLPpackage import tokenize, get_predictions
 engine = create_engine('sqlite:///data/data.db')
 
 accuracy_score = pd.read_sql_table ('accuracy', engine)
+accuracy_score_cv = pd.read_sql_table ('accuracy_cv', engine)
 data = pd.read_sql_table ('data', engine)
 avail_data = (pd.read_sql_table ('avail_data', engine))
 
+
+
 print (avail_data)
 
-graph_one = [(go.Bar(
-    x = accuracy_score['index'],
-    y = accuracy_score['precision'],
-    name = 'test'))]
+x = list(accuracy_score['index'])
+print (x)
+y1 = list (accuracy_score['precision'])
+y2 = list (accuracy_score_cv['precision'])
+xJSON = json.dumps(list(x))
 
-layout_one = dict (title = 'Precission Score of test-Data',
-    xaxis = dict (title = ''),
-    yaxis = dict (title= 'accuracy of predicted Tweets')
-                )
-
-
-graph_two = [(go.Bar(
+graph_three = [(go.Bar(
     x = avail_data['index'],
     y = avail_data['0'],
     name = 'available Data'))]
 
-layout_two = dict (title = 'Training Data',
+layout_three = dict (title = 'Training Data',
     xaxis = dict (title = ''),
     yaxis = dict (title= 'count')
                 )
 
-
 figures = []
-figures.append (dict(data = graph_one, layout = layout_one))
-figures.append (dict(data = graph_two, layout = layout_two))
+figures.append (dict(data = graph_three, layout = layout_three))
 
 ids = ['figures-{}'.format (i) for i, _ in enumerate(figures)]
 
 figuresJSON = json.dumps(figures, cls=plotly.utils.PlotlyJSONEncoder)
 tweet = []
-
-
 
 
 
@@ -84,7 +78,7 @@ def index():
     example = data['message'].loc [number]
 
 
-    return render_template('Website.html',  figuresJSON = figuresJSON, ids = ids, example = example)
+    return render_template('Website.html', x = xJSON, y1 = y1, y2 = y2, figuresJSON = figuresJSON, ids = ids, example = example)
 
 
 
@@ -106,8 +100,8 @@ def predict():
         print (a)
         # redirect (str(request.url + '#item-1'))
 
-        return render_template('predict.html', tweet = tweet, predictedCat = list(a.index), otherCat = list(b.index),  figuresJSON = figuresJSON, ids = ids, example = example)
+        return render_template('predict.html', x = xJSON, y1 = y1, y2 = y2, tweet = tweet, predictedCat = list(a.index), otherCat = list(b.index),  figuresJSON = figuresJSON, ids = ids, example = example)
 
 
-    return render_template('Website.html',   figuresJSON = figuresJSON, ids = ids, example = example)
+    return render_template('Website.html',  x = xJSON, y1 = y1, y2 = y2, figuresJSON = figuresJSON, ids = ids, example = example)
 # predictedCat = a.index, otherCat = b.index
