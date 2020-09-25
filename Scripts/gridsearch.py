@@ -1,5 +1,10 @@
 # import libraries
+'''
+    This one searches the best parameters and saves the model as the '_cv.sav' file.
 
+
+
+'''
 import numpy as np
 import pandas as pd
 import joblib
@@ -17,8 +22,10 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.ensemble import RandomForestClassifier
 
+'''
+    read in the data
+'''
 engine = create_engine('sqlite:///data/data.db')
-
 data = pd.read_sql_table ('data', engine)
 data = data.set_index (['id'])
 
@@ -27,11 +34,15 @@ categories.remove ('child_alone_cat')
 X_train, X_test, y_train, y_test = train_test_split(data['message'], data[categories], test_size = 0.5)
 
 
-
+'''
+    Load the pipeline that is intended to be optimized
+'''
 reduced_pipeline = joblib.load ('./Models/finalized_model.sav')
 
 
-
+'''
+    Set the parameters
+'''
 parameters = {
     'count__ngram_range': ((1, 1) , (1, 2))
     , 'count__max_df': (0.5, 1.0)
@@ -43,11 +54,18 @@ cv_pipeline.fit(X_train, y_train)
 print (cv_pipeline.best_params_)
 y_pred_cv = pd.DataFrame (cv_pipeline.predict (X_test), index = X_test, columns = categories)
 
+'''
+    Save the Pipeline as a joblib file
+'''
+
 model_cv = cv_pipeline
 filename = './Models/finalized_model_cv.sav'
 joblib.dump(model_cv, filename)
 
 
+'''
+    Check the Classification report
+'''
 classifi = []
 for i in range(len(y_test.columns)):
     cat_name = ('Category: {} '.format(y_test.columns[i]))

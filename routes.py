@@ -29,9 +29,13 @@ from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.corpus import stopwords
 
 from NLPpackage import tokenize, get_predictions
+'''
+    NLPpackage is my own PyPi Package for this Project.
+    It includes the tokenizer and the get_predictions functions
 
+'''
 
-
+# Load all Data from the SQL Server
 engine = create_engine('sqlite:///data/data.db')
 
 accuracy_score = pd.read_sql_table ('accuracy', engine)
@@ -41,14 +45,17 @@ avail_data = (pd.read_sql_table ('avail_data', engine))
 
 
 
-print (avail_data)
-
+'''
+    In order to compare the CV-optimized Model with the regular Model
+    I arrange a Bar-Chart that shows both prediction-scores in one Plot.
+'''
 x = list(accuracy_score['index'])
-print (x)
 y1 = list (accuracy_score['precision'])
 y2 = list (accuracy_score_cv['precision'])
 xJSON = json.dumps(list(x))
 
+
+# Number of tweets to teach the model
 graph_three = [(go.Bar(
     x = avail_data['index'],
     y = avail_data['0'],
@@ -61,16 +68,13 @@ layout_three = dict (title = 'Training Data',
 
 figures = []
 figures.append (dict(data = graph_three, layout = layout_three))
-
 ids = ['figures-{}'.format (i) for i, _ in enumerate(figures)]
-
 figuresJSON = json.dumps(figures, cls=plotly.utils.PlotlyJSONEncoder)
 tweet = []
 
 
 
-# test whether classification is working
-
+# Landing Page
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
@@ -82,7 +86,7 @@ def index():
 
 
 
-
+# Secondary Page with the score Data
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
     # user input in 'tweet'
@@ -98,10 +102,9 @@ def predict():
         a = pred[pred[0]== 1]
         b = pred[pred[0]== 0]
         print (a)
-        # redirect (str(request.url + '#item-1'))
+
 
         return render_template('predict.html', x = xJSON, y1 = y1, y2 = y2, tweet = tweet, predictedCat = list(a.index), otherCat = list(b.index),  figuresJSON = figuresJSON, ids = ids, example = example)
 
-
+        # in case of no input...
     return render_template('Website.html',  x = xJSON, y1 = y1, y2 = y2, figuresJSON = figuresJSON, ids = ids, example = example)
-# predictedCat = a.index, otherCat = b.index
