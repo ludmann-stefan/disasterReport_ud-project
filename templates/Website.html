@@ -54,7 +54,7 @@
       <p class="lead">... on Disaster Report Tweets</p>
       <hr class="my-4">
 
-        <li> Demonstration on categorizing emergency messages based on tweets </li>
+        <li> demonstration on <b style ="font-weight:bold;"> categorizing </b> emergency messages based on tweets </li>
         <li> NLP processing and building Machine Learning Classification  </li>
         <li> deploy a html Dashboard </li>
 
@@ -84,7 +84,14 @@
         {% block message %} {% endblock %}
         {% block results %} {% endblock %}
       <p>
+        Short description on what i have done so far and how calculation is running:
+        <div> </div>
+        <li> own TOKENIZER deployed to PyPi (pip install NLPpackage-Package) and run with (from NLPpackage import tokenize, get_predictions) </li>
+        <li> CountVectorizer - gets the dummies and make fill in binary values </li>
+        <li> TF-IDF is a transformer, that weightens each word based on training-set </li>
+        <li> AdaBoostClassifier was chosen because of the size of the file </li>
 
+        <div> In the Plot below you can see the prediction score of the classifier and the score after searching with the GridSearchCV module. For Classification the non-optimized model is used. </div>
       </p>
       </div>
 
@@ -92,15 +99,11 @@
       <hr>
 
       <h4 id="item-2">Accuracy Score</h4>
-      <p>
-        Short description on what i have done so far and how calculation is running
-        <li> Efficient and fast processing based on reduced Vocabulary</li>
-        <li> Decision Tree approach on train and test Data</li>
 
-    </p>
         <div id ='Plot2'></div>
+        <div>  </div>
+
         <div id ="{{ids[0]}}"></div>
-        <div> {{x}} </div>
 
 
       <hr>
@@ -108,7 +111,10 @@
 
       <h4 id="item-3">Disclaimer</h4>
       <p> Data is provided by Figure Eight. Project design from Udacity. </p>
-      <p> Backend (ETL-Pipeline, ML) and Frontend (HTML, JS, CSS) written by Stefan Ludmann . GitHub link...</p>
+      <p> Backend (ETL-Pipeline, ML) and Frontend (HTML, JS, CSS) written by Stefan Ludmann. GitHub link...</p>
+      <div style = 'font-size: 8pt'> feel free to use some code, but keep in mind: </div>
+      <div style = 'font-size: 8pt'> the webpage is not maintained!! </div>
+
     </div>
 </div>
 

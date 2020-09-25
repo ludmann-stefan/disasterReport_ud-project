@@ -46,8 +46,7 @@ vers 1\
 \fs32 \
 \pard\pardeftab708\ri-386\partightenfactor0
 \ls1\ilvl0
-\fs24 \cf0 Fast reaction in an emergency is crucial. Using Machine Learning algorithms to connect a need with the right help organization, can be key in maintaining help coordination, during a disaster. \
-\
+\fs24 \cf0 Fast reaction following a disaster is crucial. Emergency-help can be asked via twitter or other social media channels. This can be due to high frequency in calls. Using Machine Learning algorithms to connect those needs with the right help organization, without the need of manpower, can be key in maintaining help coordination, during a disaster. \
 \
 Being a part of the 
 \f2\b Study-Program \'82Data-Scientist\'91 
@@ -55,17 +54,22 @@ Being a part of the
 The Project is split into three parts- ETL, Machine Learning Pipeline and Web development:\
 \
 The goal is to link between an input and an organization-service. The input-Data is combined, cleaned and stored in a SQLite database.\
-Then a Machine Learning Pipeline with a CountVectorizer (inlcuding a custom Tokenizer), TF-IDF Transformer and a Forest Tree Classifier is set up and taught with the training data. Further, a best Parameter analysis is done with the GridSearch CV tool from Scikit Learn.\
+Then a Machine Learning Pipeline with a CountVectorizer (inlcuding a custom Tokenizer), TF-IDF Transformer and a Classifier is set up and taught with the training data. Further, a best Parameter analysis is done with the GridSearch CV tool from Scikit Learn.\
 To show you the results, a Web-Page is set up and runs the classifier. \
 \
-\
-\ls1\ilvl0{\field{\*\fldinst{HYPERLINK "https://ud-ds-disasterresponse-stefan.herokuapp.com/"}}{\fldrslt https://ud-ds-disasterresponse-stefan.herokuapp.com/}}\
+\pard\pardeftab708\ri-386\qc\partightenfactor0
+\ls1\ilvl0{\field{\*\fldinst{HYPERLINK "https://ud-ds-disasterresponse-stefan.herokuapp.com/"}}{\fldrslt \cf0 https://ud-ds-disasterresponse-stefan.herokuapp.com/}}\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \ls1\ilvl0
 \f1\fs32 \cf4 \expnd0\expndtw0\kerning0
 \
-\pard\pardeftab708\ri-386\partightenfactor0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 \
+\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 {{\NeXTGraphic Pasted Graphic 2.pdf \width8600 \height5680 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab708\ri-386\partightenfactor0
+\cf0 \
 \
 \pard\pardeftab708\ri-386\qc\partightenfactor0
 
@@ -76,13 +80,6 @@ To show you the results, a Web-Page is set up and runs the classifier. \
 \pard\pardeftab708\ri-386\partightenfactor0
 
 \fs28 \cf0 	2. Installation and Files\
-\pard\pardeftab708\ri-386\partightenfactor0
-
-\fs24 \cf0 The Code is deployed on a heroku webserver, so it was modified in some Parts. Those Parts where highlighted with a [xxx] squared-bracket, where xxx shows the Code Line to change.\
-\
-\pard\pardeftab708\ri-386\partightenfactor0
-
-\fs28 \cf0 \
 \pard\pardeftab708\ri-386\partightenfactor0
 
 \fs24 \cf0 This Code runs on Python 3.x and requires the following Libraries:\
@@ -103,6 +100,8 @@ and
 \f0\i0 	\
 		as call options\
 \
+\
+The Code is deployed on a heroku webserver, so it was modified in some Parts. Those Parts where highlighted with a [xxx] squared-bracket, where xxx shows the Code Line to change.\
 \
 \
 \
@@ -129,7 +128,7 @@ messages.csv, Multilingual disaster response messages.\
 \fs20          |  categories.csv\
          |  messages.csv\
          |  Twitter-sentiment-self-drive-DFE.csv\
-         |  data.db		(SQLite Database)
+         |  data.db				(SQLite Database)
 \fs24 \
 \
 
@@ -138,8 +137,7 @@ messages.csv, Multilingual disaster response messages.\
 
 \fs20          |  process_data.py		(ETL)\
          |  train_classifier.py		(ML, nlp)\
-         |  predict.py			(Analyze the input)	\
-         |  funktions.py			(stores the functions)
+         |  gridsearcht.py			(ParameterSearch on the ML)	
 \fs24 \
 \
 
@@ -147,19 +145,25 @@ messages.csv, Multilingual disaster response messages.\
 \f0\b0 \
 
 \fs20          |  accuracy_score.csv\
-         |  model_tweetanalyze	? Delete\
-         |  nonCVpredict		??
+         |  finalized_model.sav	\
+         |  finallized_model_cv.sav\
+         |  test_model.sav			(only to check if code is running)
 \fs24 \
 \
 
 \f2\b     | \'97 templates
-\f0\b0 \
-
-\fs20          |  accuscore.html 		??\
-         |  Website.html		Landing-Page\
+\f0\b0\fs20 \
+         |  Website.html			Landing-Page\
          |  predict.html			Result-Page
 \fs24 \
 \
+
+\f2\b     | \'97 static\
+\pard\pardeftab708\ri-386\partightenfactor0
+
+\f0\b0 \cf0 	
+\fs20 some css and js files for the templates
+\fs24 \
 \
 \
 \
@@ -180,8 +184,7 @@ The Classifier was mainly chosen because of the file size.\
 \
 \
 \
-\
- Webpage while it is running: \
+ Webpage while it is on: (since this is a demonstration, it can be taken down by time\'85) \
 	{\field{\*\fldinst{HYPERLINK "https://ud-ds-disasterresponse-stefan.herokuapp.com/"}}{\fldrslt https://ud-ds-disasterresponse-stefan.herokuapp.com/}}\
 \
 \
