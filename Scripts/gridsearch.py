@@ -2,8 +2,6 @@
 '''
     This one searches the best parameters and saves the model as the '_cv.sav' file.
 
-
-
 '''
 import numpy as np
 import pandas as pd
